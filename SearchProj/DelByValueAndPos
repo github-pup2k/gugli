@@ -1,0 +1,73 @@
+LinkList::Node* LinkList::DeleteByValue(Node* node, int v)
+{
+	Node *tmp = node;
+
+	//If list is empty
+	if (tmp != nullptr)
+	{
+		//If the deleted element is the first node
+		if (node->data == v)
+		{
+			node = node->next;
+			delete tmp;
+		}
+
+		else
+		{
+			while (tmp->next != nullptr && tmp->next->data != v)
+				tmp = tmp->next;
+
+			//If element does not exist in the list
+			if (tmp->next != nullptr)
+			{
+				Node *toDeleted = tmp->next;
+				tmp->next = tmp->next->next;
+				delete toDeleted;
+			}
+
+		}
+	}
+	return node;
+}
+
+
+LinkList::Node* LinkList::DeleteByPosition(Node* node, int pos)
+{
+	Node *tmp = node;
+	//Link list is empty
+	if (pos > 0)
+	{
+		//Deleted element is the first element
+		if (pos == 1)
+		{
+			node = node->next;
+			delete tmp;
+		}
+		else
+		{
+			//tmp is already pointing to 1st node
+			for (int i = 2; i < pos; i++)
+				tmp = tmp->next;
+
+			//pos is not available
+			if (tmp->next != nullptr)
+			{
+				Node *nodeToDelete = tmp->next;
+				tmp->next = tmp->next->next;
+				delete nodeToDelete;
+			}
+		}
+	}
+	return node;
+}
+
+void LinkList::DeleteByValue(int v)
+{
+	head_ = DeleteByValue(head_, v);
+}
+
+
+void LinkList::DeleteByPosition(int pos)
+{
+	head_ = DeleteByPosition(head_, pos);
+}
